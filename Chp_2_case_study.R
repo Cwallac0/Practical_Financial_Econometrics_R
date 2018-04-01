@@ -1,4 +1,4 @@
-# Case Study for MRA II.1
+# Case Study II.1 from Practical Financial Econometrics 
 library(tidyverse)
 library(readxl)
 library(magrittr)
