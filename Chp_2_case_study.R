@@ -4,11 +4,14 @@ library(readxl)
 library(magrittr)
 library(modelr)
 
-chp.2_path <- file.path("C:\\Users\\CDub\\Documents\\R\\Examples\\MRA\\Chp2\\vod_nok.xlsx")
+chp.2_path <- file.path("C:\\yourpath\\Case_Study_II.1")
 
-vod_nok_dt <- read_excel(chp.2_path, sheet = "Vod_Nok_dt")
+vod_nok_dt <- read_excel(chp.2_path, sheet = "Voda Nokia Factor Model")
 
-### The data used for factor models
+# The data used for factor models is on Voda-Nokia Factor Model tab
+# Columns A through G are the raw data.  
+# Code following makes returns that are in H through M
+
 vod_nok_dt %<>% 
   mutate(Vodafone_rt       = log(Vodafone / lag(Vodafone)),
          Nokia_rt          = log(Nokia / lag(Nokia)),
@@ -39,9 +42,11 @@ nok_lm_list <- list(
                 Factor3 = as.formula(Nokia_rt ~ NYSE_Index_rt + Communications_rt + Growth_rt),
                 Factor4 = as.formula(Nokia_rt ~ NYSE_Index_rt + Communications_rt + 
                                        Growth_rt + Large_Cap_rt)
-                )
+)            
 
+# Use purrr's map to perform regressions
 nok_factor_models <- map(nok_lm_list, lm, data = vod_nok_dt)
+
 # Examples of how to retrieve data from model list
 summary(nok_factor_models$Factor4)
 anova(nok_factor_models$Factor4)
@@ -54,9 +59,10 @@ vod_lm_list <- list(
                          Growth_rt + Large_Cap_rt)
 )
 
+# Use purrr's map to perform regressions
 vod_factor_models <- map(vod_lm_list, lm, data = vod_nok_dt)
 
-######## Fig.II.1.4:  rebased to 100 data
+## Fig.II.1.4:  rebased to 100 data
 vod_nok_dt %>% 
   transmute(
          Date = Date, 
@@ -71,7 +77,7 @@ vod_nok_dt %>%
   ggplot(., aes(Date, values, col = factors)) + geom_line() +
   theme(legend.position = "bottom")
 
-####### Fig II.1.7: Portfolio Return
+## Fig II.1.7: Portfolio Return
 Vodafone <- 1
 Nokia    <- 3
 
@@ -84,7 +90,7 @@ vod_nok_dt %>%
   summarise(st_dev = sd(port_ret, na.rm = TRUE), vol = sqrt(250) * st_dev)
 
 
-################ Orthogonal Regressions
+## Orthogonal Regressions
 # Create PCAs
 pcas <- prcomp(na.omit(vod_nok_dt[, c(10:13)]))
 # Variance explained
