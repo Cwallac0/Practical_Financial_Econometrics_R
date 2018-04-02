@@ -1,4 +1,4 @@
-# Case Study II.1 from Practical Financial Econometrics 
+# Case Study from Chp.1 from Practical Financial Econometrics 
 library(tidyverse)
 library(readxl)
 library(magrittr)
