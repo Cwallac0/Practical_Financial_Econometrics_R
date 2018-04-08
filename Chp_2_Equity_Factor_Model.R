@@ -10,7 +10,8 @@ library(stringr)
 library(broom)
 
 # File path
-djia_file <- file.path("C:\\Users\\CDub\\Documents\\R\\Examples\\MRA\\Chp2\\Case_Study_II.2_PCA_Equity_Factor_Model.xlsx")
+# Must save as updated version of workbook
+djia_file <- file.path("Your_Path\\Case_Study_II.2_PCA_Equity_Factor_Model.xlsx")
 
 # DJIA as of 2005. Use tidyquant for new DJIA
 djia <- read_excel(djia_file, sheet = "DJIA Prices")
