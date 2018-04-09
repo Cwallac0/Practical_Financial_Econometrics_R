@@ -6,7 +6,7 @@ library(tidyverse)
 library(readxl)
 
 # File path 
-file_fwd <- file.path("YourPath\\PCA_Fwd_Curve.xlsx")
+file_fwd <- file.path("Your_Path\\PCA_Fwd_Curve.xlsx")
 
 # Load data
 fwd <- read_excel(file_fwd, sheet = "Fwd")
