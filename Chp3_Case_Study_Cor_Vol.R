@@ -1,4 +1,4 @@
-# Chp. 3  Volatility and COrrelation 
+# Chp. 3  Volatility and Correlation 
 library(tidyverse)
 library(readxl)
 library(lubridate)
@@ -9,11 +9,10 @@ library(magrittr)
 # Downloaded data from Federal Reserve:
 #"https://www.federalreserve.gov/datadownload/Choose.aspx?rel=H15"
 
-frb15_path <- file.path("C:\\Users\\CDub\\Documents\\R\\Examples\\MRA\\Chp3\\FRB_H15.xlsx")
 frb15_path <- file.path("Your_path\\FRB_H15.xlsx")
 
 # Import data 
-# Skip first 5 rowws & manually set column types
+# Skip first 5 rows & manually set column types
 frb15 <- read_excel(frb15_path, skip = 5, col_types = c("date", rep("numeric", 11)))
 
 frb15 %<>% 
@@ -72,18 +71,7 @@ Period_C[, -1] %>%
   correlate()
 
 
-#Relative Returns 
-Returns_rel <- frb15 %>% na.omit() %>% 
-  mutate_at(vars(-Date), fuction(x) log(x / lag(x))) 
 
-frb15 %>% 
-  filter(Date > "2006-01-01") %>% 
-  mutate_at(vars(-Date), function(x) log(x/lag(x))) %>% 
-  mutate_at(vars(-Date), function(x) ifelse(x %in% c(Inf, -Inf), NA, x)) %>% 
-  na.omit() %>% 
-  summarise_at(vars(-Date), function(x) sd(x) * sqrt(250))
-
-  
 
 
   
