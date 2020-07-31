@@ -7,13 +7,6 @@ library(purrr)
 library(readxl)
 
 # Voda_Nokia Factor Model tab------------------------------
-#Import data
-data <- read.table('clipboard', header = TRUE, sep = "\t")
-data <- data %>% mutate(Date = dmy(Date)) %>% tbl_df()
-
-
-C:\Users\CDub\Documents\Charles\Resources\Texts\MRA Models\II\content 2\II.1\Case_Study_II.1.xls
-
 # Create file path  
 files <- file.path("your_file_path")
 
